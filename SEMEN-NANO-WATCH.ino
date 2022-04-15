@@ -170,12 +170,16 @@ void loop() {
         lcd.setCursor(3, 0);
         lcd.write(5);
       } else if (editMode == 1) {
-        if (editH == 1) rtc.settime(-1, -1, h_Value);
-        else if (editI == 1) rtc.settime(-1, i_Value);
-        else if (editS == 1) rtc.settime( s_Value);
-        else if (editD == 1) rtc.settime(-1, -1, -1,  d_Value);
-        else if (editM == 1) rtc.settime(-1, -1, -1, -1, m_Value);
-        else if (editY == 1) rtc.settime(-1, -1, -1, -1, -1, y_Value);
+        //        if (editH == 1) rtc.settime(-1, -1, h_Value);
+        //        else if (editI == 1) rtc.settime(-1, i_Value);
+        //        else if (editS == 1) rtc.settime( s_Value);
+        //        else if (editD == 1) rtc.settime(-1, -1, -1,  d_Value);
+        //        else if (editM == 1) rtc.settime(-1, -1, -1, -1, m_Value);
+        //        else if (editY == 1) rtc.settime(-1, -1, -1, -1, -1, y_Value);
+        //////////////////////////////////////////////////////////////
+        rtc.settime(s_Value, i_Value, h_Value, d_Value, m_Value, y_Value);
+        //////////////////////////////////////////////////////////////
+
         unixTime = rtc.gettimeUnix();
         setTime(unixTime);
         Serial.println(unixTime);
@@ -218,10 +222,10 @@ void loop() {
         lcd.write(5);
         editH = 0;
         editI = 1;
-        rtc.settime(-1, -1, h_Value);
-        unixTime = rtc.gettimeUnix();
-        Serial.println(unixTime);
-        setTime(unixTime);
+        //        rtc.settime(-1, -1, h_Value);
+        //        unixTime = rtc.gettimeUnix();
+        //        Serial.println(unixTime);
+        //        setTime(unixTime);
         Serial.println("editMode - switching to minutes");
       } else if (editI == 1) {
         printDotsAndSpaces();
@@ -229,10 +233,10 @@ void loop() {
         lcd.write(5);
         editI = 0;
         editS = 1;
-        rtc.settime(-1, i_Value);
-        unixTime = rtc.gettimeUnix();
-        Serial.println(unixTime);
-        setTime(unixTime);
+        //        rtc.settime(-1, i_Value);
+        //        unixTime = rtc.gettimeUnix();
+        //        Serial.println(unixTime);
+        //        setTime(unixTime);
         Serial.println("editMode - switching to seconds");
       } else if (editS == 1) {
         printDotsAndSpaces();
@@ -240,10 +244,10 @@ void loop() {
         lcd.write(5);
         editS = 0;
         editD = 1;
-        rtc.settime( s_Value);
-        unixTime = rtc.gettimeUnix();
-        Serial.println(unixTime);
-        setTime(unixTime);
+        //        rtc.settime( s_Value);
+        //        unixTime = rtc.gettimeUnix();
+        //        Serial.println(unixTime);
+        //        setTime(unixTime);
         Serial.println("editMode - switching to days");
       } else if (editD == 1) {
         printDotsAndSpaces();
@@ -251,10 +255,10 @@ void loop() {
         lcd.write(5);
         editD = 0;
         editM = 1;
-        rtc.settime(-1, -1, -1, d_Value);
-        unixTime = rtc.gettimeUnix();
-        Serial.println(unixTime);
-        setTime(unixTime);
+        //        rtc.settime(-1, -1, -1, d_Value);
+        //        unixTime = rtc.gettimeUnix();
+        //        Serial.println(unixTime);
+        //        setTime(unixTime);
         Serial.println("editMode - switching to month");
       } else if (editM == 1) {
         printDotsAndSpaces();
@@ -262,17 +266,18 @@ void loop() {
         lcd.write(5);
         editM = 0;
         editY = 1;
-        rtc.settime(-1, -1, -1, -1, m_Value);
-        unixTime = rtc.gettimeUnix();
-        Serial.println(unixTime);
-        setTime(unixTime);
+        //        rtc.settime(-1, -1, -1, -1, m_Value);
+        //        unixTime = rtc.gettimeUnix();
+        //        Serial.println(unixTime);
+        //        setTime(unixTime);
         Serial.println("editMode - switching to year");
       } else if (editY == 1) {
         printDotsAndSpaces();
 
         editY = 0;
         editMode = 0;
-        rtc.settime( -1, -1, -1, -1, -1, y_Value);
+        //        rtc.settime( -1, -1, -1, -1, -1, y_Value);
+        rtc.settime(s_Value, i_Value, h_Value, d_Value, m_Value, y_Value);
         unixTime = rtc.gettimeUnix();
         Serial.println(unixTime);
         setTime(unixTime);
@@ -372,8 +377,8 @@ void printDotsAndSpaces() {
   lcd.setCursor(9, 0);
   lcd.write(2);
   //  lcd.print(":");
-//  lcd.setCursor(0, 1);
-//  lcd.write(0);
+  //  lcd.setCursor(0, 1);
+  //  lcd.write(0);
   //  lcd.print("_");
   lcd.setCursor(3, 1);
   lcd.write(1);
