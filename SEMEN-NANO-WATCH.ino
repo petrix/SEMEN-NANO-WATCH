@@ -24,7 +24,7 @@ const char* strM = "JanFebMarAprMayJunJulAugSepOctNovDec"; // Определяе
 const char* sysT = __TIME__;                              // Получаем время компиляции скетча в формате "SS:MM:HH".
 const char* sysD = __DATE__;                              // Получаем дату  компиляции скетча в формате "MMM:DD:YYYY", где МММ - текстовое представление текущего месяца, например: Jul.
 //  Парсим полученные значения sysT и sysD в массив i:    // Определяем массив «i» из 6 элементов типа int, содержащий следующие значения: секунды, минуты, часы, день, месяц и год компиляции скетча.
-const int i[6] {
+const int iTime[6] {
   (sysT[6] - 48) * 10 + (sysT[7] - 48),
   (sysT[3] - 48) * 10 + (sysT[4] - 48),
   (sysT[0] - 48) * 10 + (sysT[1] - 48),
@@ -66,9 +66,16 @@ void setup() {
     Serial.println("Unable to sync with the RTC");
   } else {
     Serial.println("RTC has set the system time");
+    Serial.println(rtc.Unix);
+    Serial.println(rtc.gettime("d-M-Y, H:i:s"));
+    Serial.println(iTime[0]);
+    Serial.println(iTime[1]);
+    Serial.println(iTime[2]);
+    Serial.println(iTime[3]);
+    Serial.println(iTime[4]);
+    Serial.println(iTime[5]);
   }
-  Serial.println(rtc.Unix);
-  Serial.println(rtc.gettime("d-M-Y, H:i:s"));
+
   ///////////////////////////////////////////////////////////
   Serial.println(sysT);
   Serial.println(sysD);
