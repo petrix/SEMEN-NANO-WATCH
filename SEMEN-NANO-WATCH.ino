@@ -28,8 +28,8 @@ const int iTime[6] {
   (sysT[6] - 48) * 10 + (sysT[7] - 48),
   (sysT[3] - 48) * 10 + (sysT[4] - 48),
   (sysT[0] - 48) * 10 + (sysT[1] - 48),
-  //  (sysD[4] - 48) * 10 + (sysD[5] - 48),
-  (sysD[5] - 48),
+   (sysD[4] - 48) * 10 + (sysD[5] - 48),
+  // (sysD[5] - 48),
   ((int)memmem(strM, 36, sysD, 3) + 3 - (int)&strM[0]) / 3,
   (sysD[9] - 48) * 10 + (sysD[10] - 48)
 };
@@ -74,6 +74,7 @@ void setup() {
     Serial.println(iTime[3]);
     Serial.println(iTime[4]);
     Serial.println(iTime[5]);
+    setTime(iTime[2],iTime[1],iTime[0],iTime[3],iTime[4],iTime[5]);
   }
 
   ///////////////////////////////////////////////////////////
@@ -143,6 +144,7 @@ void loop() {
     //    delay(10);
     //    digitalWrite(13, LOW);
   }
+  /*
   if (millis() - syncTime > 60000) {
     syncTime = millis();
     Serial.println("unix");
@@ -154,6 +156,7 @@ void loop() {
     //    setTime(rtc.Unix);
     setTime(unixTime);
   }
+  */
   //  if (millis() - backlightTimeout > 30000) {
   //    lcd.noBacklight();
   //    lcd.noDisplay();
@@ -460,10 +463,14 @@ void processSyncMessage() {
   switch (c) {
     case HOUR:
       value = Serial.parseInt();
-      //      if (value < 24)
       rtc.settime(-1, -1, value);
+      // h_value = value;
       Serial.println("HOUR");
       Serial.println(value);
+      h_Value=value;
+      setTime(h_Value,-1,-1,-1,-1,-1);
+      Serial.println(hour());
+
       break;
     case MIN:
       value = Serial.parseInt();
